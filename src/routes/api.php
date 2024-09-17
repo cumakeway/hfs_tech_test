@@ -22,9 +22,15 @@ use App\Http\Controllers\AuthController;
 
 Route::middleware(['cors'])->group(function () {
     Route::post('user/register', [UserController::class, 'create']);
-    
+ 
     Route::post('login', [AuthController::class, 'login']);
+
+    Route::post('logout', [AuthController::class, 'logout'])
+    ->middleware('api.auth');
 
     Route::get('users/{id}', 
     [UserController::class, 'view'])->middleware('api.auth');
+
+    Route::post('user/update', 
+    [UserController::class, 'update'])->middleware('api.auth');
 });

@@ -54,7 +54,7 @@ class UserController extends Controller
             if(empty($user)){
                 return response()->json([
                     "error" => "This user does not exist"
-                ], 422);
+                ], 404);
             }
             return response()->json(['user' => $user], 200);
         }
@@ -62,6 +62,38 @@ class UserController extends Controller
         {
             return response()->json($ex->getMessage() );
         }
-       
+    }
+
+    public function update(Request $request)
+    {
+        try
+        {
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+             ],
+             [
+                 'name.required' => 'This field cannot be blank',
+             ]);
+
+             if($validator->fails()){
+                 return response()->json([
+                     "error" => $validator->errors()
+                 ], 422);
+             }
+
+             $name = $request['name'];
+             $id = $request['id'];
+             $user = User::find($id);
+             $user->name = $name;
+             $user->save();
+
+             return response()->json(['user' => $user ,
+             'message' => 'User updated!'], 201);
+
+        }
+        catch(\Exception $ex)
+        {
+            return response()->json($ex->getMessage() );
+        }
     }
 }
