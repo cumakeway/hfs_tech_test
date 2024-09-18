@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArticleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,4 +35,13 @@ Route::middleware(['cors'])->group(function () {
 
     Route::post('user/update', 
     [UserController::class, 'update'])->middleware('api.auth');
+
+    Route::post('article/create', 
+    [ArticleController::class, 'create'])->middleware('api.auth');
+
+    Route::get('articles/{id}', 
+    [ArticleController::class, 'view'])->middleware('api.auth');
+
+    Route::delete('articles/{id}/{user_id}', 
+    [ArticleController::class, 'delete'])->middleware('api.auth');
 });
