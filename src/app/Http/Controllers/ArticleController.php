@@ -138,4 +138,17 @@ class ArticleController extends Controller
             return response()->json($ex->getMessage() );
         }
     }
+
+    public function list()
+    {
+        try
+        {
+            $articles = Article::paginate(15);
+            return response()->json(['articles' => $articles], 200);
+        }
+        catch(\Exception $ex)
+        {
+            return response()->json($ex->getMessage() );
+        }
+    }
 }

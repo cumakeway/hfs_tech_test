@@ -44,4 +44,7 @@ Route::middleware(['cors'])->group(function () {
 
     Route::delete('articles/{id}/{user_id}', 
     [ArticleController::class, 'delete'])->middleware('api.auth');
+
+    Route::get('articles', 
+    [ArticleController::class, 'list']);
 });
