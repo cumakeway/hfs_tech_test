@@ -6,5 +6,3 @@
 <li> run `composer install` </li>
 <li> setup database credentials in .env </li>
 <li> run `php artisan jwt:secret` to generate jwt key </li>
-
-### Premium Partners
